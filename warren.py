@@ -40,7 +40,7 @@ def risky_divide(carrots, bunnies):
     try:
         return carrots / bunnies
     except:
-        # bare except swallows everything, including real bugs
+        # bare except swallows everything, including real bugs - testing
         pass
 
 
