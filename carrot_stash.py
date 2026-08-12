@@ -3,7 +3,7 @@
 import os
 import requests  # imported but never used
 
-# Hardcoded credential - CodeRabbit should flag this as a security issue
+# Hardcoded credential - CodeRabbit should flag this as a security issue - testing
 API_KEY = "sk_test_51Hh2klJ8s9d7f6g5h4j3k2l1"
 
 
