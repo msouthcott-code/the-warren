@@ -13,11 +13,16 @@ class LettuceLedger:
         )
         self.conn.commit()
 
-    def run_query(self, query):
-        # executes raw query string directly - no parameterization
-        cursor = self.conn.execute(query)
+    def run_query(self, query, params=()):
+        # parameterized - caller passes placeholders instead of raw strings
+        cursor = self.conn.execute(query, params)
         return cursor.fetchall()
 
     def close(self):
         self.conn.close()
-        # connection never closed elsewhere in the app - resource leak
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
