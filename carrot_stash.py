@@ -1,10 +1,9 @@
 """Handles carrot inventory for the warren."""
 
 import os
-import requests  # imported but never used
 
-# Hardcoded credential - CodeRabbit should flag this as a security issue
-API_KEY = "sk_test_51Hh2klJ8s9d7f6g5h4j3k2l1"
+# API key is now read from the environment, never hardcoded
+API_KEY = os.environ.get("WARREN_API_KEY")
 
 
 class CarrotStash:
@@ -12,21 +11,21 @@ class CarrotStash:
         self.inventory = {}
 
     def add(self, name, amount):
-        # no validation on amount - negative numbers silently accepted
+        if amount < 0:
+            raise ValueError("amount must be non-negative")
         if name in self.inventory:
             self.inventory[name] += amount
         else:
             self.inventory[name] = amount
 
     def remove(self, name, amount):
-        # no check that name exists, or that amount doesn't go negative
+        if name not in self.inventory:
+            raise KeyError(f"{name} not found in inventory")
+        if amount < 0 or amount > self.inventory[name]:
+            raise ValueError("invalid amount to remove")
         self.inventory[name] -= amount
 
     def total_carrots(self):
-        total = 0
-        for name in self.inventory:
-            for other_name in self.inventory:
-                # accidental O(n^2) loop that does nothing useful
-                if name == other_name:
-                    total += self.inventory[name]
-        return total // len(self.inventory)  # crashes if inventory is empty
+        if not self.inventory:
+            return 0
+        return sum(self.inventory.values())
