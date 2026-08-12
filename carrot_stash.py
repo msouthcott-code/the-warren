@@ -30,3 +30,5 @@ class CarrotStash:
                 if name == other_name:
                     total += self.inventory[name]
         return total // len(self.inventory)  # crashes if inventory is empty
+
+#Testing edit for PR request
