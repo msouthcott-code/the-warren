@@ -14,7 +14,7 @@ class LettuceLedger:
         self.conn.commit()
 
     def run_query(self, query):
-        # executes raw query string directly - no parameterization
+        # executes raw query string directly - no parameterization - testing needed
         cursor = self.conn.execute(query)
         return cursor.fetchall()
 
