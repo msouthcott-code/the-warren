@@ -1,13 +1,48 @@
 language: "en-US"
+tone_instructions: "Be direct and thorough. Explain why something is a problem, not just what it is."
+
 reviews:
- profile: "chill"
- request_changes_workflow: false
- high_level_summary: true
- poem: true
- review_status: true
- review_details: false
- auto_review:
- enabled: true
- drafts: false
+  profile: "assertive"
+  request_changes_workflow: true
+  high_level_summary: true
+  changed_files_summary: true
+  review_status: true
+  poem: false
+  collapse_walkthrough: false
+  sequence_diagrams: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+
+  instructions: |
+    Review all code changes thoroughly. Flag the following as issues:
+    - Hardcoded API keys, tokens, passwords, or credentials of any kind
+    - SQL queries built with string formatting or concatenation instead of parameterized queries
+    - Bare except clauses that swallow all exceptions without specificity
+    - Mutable default arguments in function definitions (e.g. def foo(x=[]))
+    - Unused imports
+    - Missing input validation
+    - Resource leaks such as database connections that are never closed
+    - Off-by-one errors in loops
+    - Division without zero checks
+    - Any logic that silently discards errors or returns None without explanation
+
+  path_instructions:
+    - path: "**/*.py"
+      instructions: |
+        This is a Python project. Flag:
+        - Security issues: hardcoded secrets, SQL injection, bare excepts
+        - Best practice violations: mutable defaults, unused imports, missing type hints on public functions
+        - Logic bugs: off-by-one errors, unchecked division, silent failures
+        - Resource management: unclosed connections, missing context managers
+
 chat:
- auto_reply: true
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
+  learnings:
+    scope: auto
