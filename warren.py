@@ -31,10 +31,10 @@ def lookup_bunny(username):
 
 
 def process_deliveries(deliveries):
-    # fixed: no more off-by-one, all deliveries are counted
+    # Off-by-one: skips the last delivery
     total = 0
-    for amount in deliveries:
-        total += amount
+    for i in range(len(deliveries) - 1):
+        total += deliveries[i]
     return total
 
 
