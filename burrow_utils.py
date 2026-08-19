@@ -1,8 +1,8 @@
-def greet_bunny(name):
+def greet_bunny(name: str) -> None:
     print("Welcome to the warren, " + name + "!")
 
 
-def format_report(total):
+def format_report(total: int) -> str:
     return "Total deliveries: " + str(total)
 
 
