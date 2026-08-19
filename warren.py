@@ -8,6 +8,7 @@ Run:
 from carrot_stash import CarrotStash
 from burrow_utils import greet_bunny, format_report
 from lettuce_ledger import LettuceLedger
+import json  # add this - unused import
 
 # Global state - shared across the whole app (not great practice, but kept
 # as-is here; out of scope for this fix pass)
